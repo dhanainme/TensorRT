@@ -15,6 +15,7 @@
 #
 
 import argparse
+import os
 
 from collections import namedtuple, OrderedDict
 from itertools import product
@@ -70,8 +71,8 @@ class GPT2Metadata(_GPT2Metadata, MetadataArgparseInteropMixin):
 
 
 class GPT2ModelTRTConfig(NNConfig):
-    VOCAB_SIZE = 50257  # Vocabulary size of the GPT-2 model
-    TARGET_MODELS = ["gpt2", "gpt2-large"]
+    VOCAB_SIZE = int(os.getenv("VOCAB_LENGTH", "50257"))
+    TARGET_MODELS = ["gpt2", "gpt2-large", "gpt2-xl"]
     NETWORK_DECODER_SEGMENT_NAME = "gpt2_decoder"
     NETWORK_SEGMENTS = [NETWORK_DECODER_SEGMENT_NAME]
     NETWORK_FULL_NAME = "full"
@@ -79,6 +80,7 @@ class GPT2ModelTRTConfig(NNConfig):
     MAX_SEQUENCE_LENGTH = {
         TARGET_MODELS[0]: 64,
         TARGET_MODELS[1]: 64,
+        TARGET_MODELS[2]: int(os.getenv("MAX__SEQ_LENGTH", "1024")),
     }
 
     def __init__(self):

@@ -151,7 +151,7 @@ class GPT2Converter(ModelFileConverter):
                     "Here is some text to encode Hello World", add_special_tokens=True
                 )
             ]
-        )
+        ).cuda()
 
         gpt2_model = GPT2TorchFile.TorchModule(
             model.transformer, model.lm_head, model.config
