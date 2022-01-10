@@ -38,7 +38,7 @@ python3 -u trt_test.py inference 2>&1 | tee logs/$EXPERIMENT_NAME.inference
 
 # Experiments
 
-| Experiment Name| Expected Outcome | What's tested |
+| Experiment Name| Configs | Outcome / Logs |
 |------------|----------|---------------|
 |Run1 | GPT-XL BATCH_SIZE=5, MAX_SEQ_LENGTH=1024| Compiled. `logs/Run1.compile`. Inference not accurate `logs/Run1.inference`|
 |Run2 | GPT-XL BATCH_SIZE=1, MAX_SEQ_LENGTH=1024 | Compiled. `logs/Run2.compile`. Inference not accurate `logs/Run2.inference` |
