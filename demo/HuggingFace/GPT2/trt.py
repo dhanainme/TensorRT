@@ -104,7 +104,7 @@ class GPT2TRTDecoder(TRTHFRunner):
         trt_engine_file: str,
         network_metadata: NetworkMetadata,
         hf_config: PretrainedConfig,
-        batch_size: int = 1
+        batch_size: int
     ):
         super().__init__(trt_engine_file, network_metadata, hf_config, batch_size)
         self.max_sequence_length = GPT2ModelTRTConfig.MAX_SEQUENCE_LENGTH[network_metadata.variant]

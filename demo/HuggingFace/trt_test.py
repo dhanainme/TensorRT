@@ -12,7 +12,7 @@ from GPT2.trt import GPT2Config, GPT2Tokenizer, GPT2TRTDecoder
 from transformers import GPT2LMHeadModel, GPT2Model, GPT2Config, GPT2TokenizerFast
 import numpy as np
 import time
-
+from GPT2.export import GPT2TRTEngine
 
 MAX_SEQ_LENGTH = int(os.getenv("MAX__SEQ_LENGTH", "1024"))
 GPT_VARIANT=os.getenv("GPT_VARIANT", "gpt2-xl")
@@ -89,7 +89,7 @@ def prep_paths(export_dir):
     os.makedirs(f'{export_dir}/TRT/')
     return f'{export_dir}/ONNX/model.onnx', f'{export_dir}/TRT/model.engine'
 
-def main():
+def compile_model():
 
     print_globs()
     torch_model, tokenizer = get_model_and_tokenizer()
@@ -113,5 +113,57 @@ def main():
     os.system("nvidia-smi")
     trt_engine = compile_trt_model(onnx_path, trt_path)
 
+
+def run_inference():
+    torch_model = None
+    if(INIT_MODEL_FROM_CONFIG == 1): 
+        configuration = GPT2Config(n_embd=EMBEDDING, n_layer=LAYERS, n_head=HEADS)
+        print(f"Creating model from Config n_embd/n_layer/n_head : {EMBEDDING}/{LAYERS}/{HEADS}. Ignoring GPT_VARIANT")
+        torch_model = GPT2LMHeadModel(configuration)
+    else:
+        print(f"Creating model from variant name {GPT_VARIANT}, Ignoring EMBEDDING, LAYERS, HEADS")
+        torch_model = GPT2LMHeadModel.from_pretrained(GPT_VARIANT)
+
+    if(PRECISION=="fp16"):
+        torch_model = torch_model.half()
+
+    torch_model.cuda()
+
+    tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
+
+    trt_path = f"{EXPORT_PATH}/TRT/model.engine"
+    metadata=NetworkMetadata(GPT_VARIANT, Precision(PRECISION), None)
+    trt_gpt_config = GPT2Config(GPT_VARIANT)
+    trt_engine = GPT2TRTEngine(trt_path,metadata,batch_size=BATCH_SIZE)
+    trt_decoder = GPT2TRTDecoder(trt_engine, metadata, trt_gpt_config, batch_size=BATCH_SIZE)
+
+
+    input_text = "HBO released a new TV series this weekend."
+    inputs = tokenizer([input_text] * BATCH_SIZE, return_tensors="pt")
+    
+
+    print("===========================================")
+    print(f"Input text / input tensors / input shape : ", input_text , inputs, inputs['input_ids'].shape)
+
+    output_tensor = trt_decoder.generate(inputs['input_ids'].cuda(), max_length=MAX_TOKEN_LENGTH)
+    output_text = tokenizer.decode(output_tensor[0], skip_special_tokens=True)
+    print(f"==========================================\nTRT Output text / output tensors \n",output_text,'\n',output_tensor)
+
+    output_tensor_pt = torch_model.generate(inputs['input_ids'].cuda(), max_length=MAX_TOKEN_LENGTH)
+    output_text_pt = tokenizer.decode(output_tensor_pt[0], skip_special_tokens=True)
+    print(f"==========================================\nPyTorch Output text / output tensors\n", output_text_pt,'\n',output_tensor_pt)
+
+    print("===========================================")
+
+
 if __name__ == "__main__":
-    main()
+    arg = sys.argv[1]
+    if(arg == "all"):
+       compile_model()
+       run_inference()
+    if(arg == "compile"):
+        compile_model()
+    if(arg == "inference"):
+        run_inference()
+
+
