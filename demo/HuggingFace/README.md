@@ -24,7 +24,7 @@ cd /workspace/TensorRT/demo/HuggingFace
 mkdir logs
 
 export EXPERIMENT_NAME=Run1
-python3 -u compile.py 2>&1 | tee logs/$EXPERIMENT_NAME.compile
+python3 -u trt_test.py 2>&1 | tee logs/$EXPERIMENT_NAME.compile
 ```
 
 # Experiments
