@@ -4,6 +4,7 @@ import os
 from time import sleep
 from pprint import pprint
 import torch
+import random
 
 from GPT2.export import GPT2TorchFile, GPT2ONNXFile
 from GPT2.GPT2ModelConfig import GPT2ModelTRTConfig
@@ -115,6 +116,7 @@ def compile_model():
 
 
 def run_inference():
+    random.seed(15213)
     torch_model = None
     if(INIT_MODEL_FROM_CONFIG == 1): 
         configuration = GPT2Config(n_embd=EMBEDDING, n_layer=LAYERS, n_head=HEADS)
