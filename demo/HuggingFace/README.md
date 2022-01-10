@@ -43,7 +43,6 @@ python3 -u trt_test.py inference 2>&1 | tee logs/$EXPERIMENT_NAME.inference
 |Run1 | GPT-XL BATCH_SIZE=5, MAX_SEQ_LENGTH=1024| Compiled. `logs/Run1.compile`. Inference not accurate `logs/Run1.inference`|
 |Run2 | GPT-XL BATCH_SIZE=1, MAX_SEQ_LENGTH=1024 | Compiled. `logs/Run2.compile`. Inference not accurate `logs/Run2.inference` |
 |Run3 | 10B Model. INIT_MODEL_FROM_CONFIG=1, BATCH_SIZE=1 |Compilation Failed - `logs/Run3.compile`|
-|Run4 | GPT-XL BATCH_SIZE=1, MAX_SEQ_LENGTH=64 |Compiled. `logs/Run4.compile`. Inference not accurate `logs/Run4.inference`|
 |Run5 | 6B Model INIT_MODEL_FROM_CONFIG=1, EMBEDDING=4096, LAYER=32, HEAD=32| Compilation Failed - `logs/Run5.compile`|
 |Run6 | 6B Model INIT_MODEL_FROM_CONFIG=1, EMBEDDING=4096, LAYER=32, HEAD=32, BATCH_SIZE=1|Compilation Failed - `logs/Run6.compile`|
 
