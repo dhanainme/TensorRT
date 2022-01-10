@@ -1,0 +1,104 @@
+2022-01-10 03:31:57.400930: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+===============================================================================
+MAX_SEQ_LENGTH  :  1024
+GPT_VARIANT  :  gpt2-xl
+VOCAB_LENGTH  :  50257
+BATCH_SIZE  :  1
+PRECISION  :  fp16
+WS_GB  :  30
+EXPERIMENT_NAME  :  Run3
+EXPORT_PATH  :  /workspace/export/Run3/
+EMBEDDING  :  3588
+LAYERS  :  80
+HEADS  :  52
+MAX_TOKEN_LENGTH  :  48
+MAX_OUT_LENGTH  :  512
+===============================================================================
+Creating model from Config n_embd/n_layer/n_head : 3588/80/52. Ignoring GPT_VARIANT
+Model created
+Params 12546529164
+===========================================================
+Model configuration
+GPT2Config {
+  "activation_function": "gelu_new",
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_embd": 3588,
+  "n_head": 52,
+  "n_inner": null,
+  "n_layer": 80,
+  "n_positions": 1024,
+  "reorder_and_upcast_attn": false,
+  "resid_pdrop": 0.1,
+  "scale_attn_by_inverse_layer_idx": false,
+  "scale_attn_weights": true,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "transformers_version": "4.14.1",
+  "use_cache": true,
+  "vocab_size": 50257
+}
+
+===========================================================
+Mon Jan 10 03:40:41 2022       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 450.142.00   Driver Version: 450.142.00   CUDA Version: 11.4     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  A100-SXM4-40GB      On   | 00000000:90:1D.0 Off |                    0 |
+| N/A   20C    P0    70W / 400W |  26454MiB / 40537MiB |      9%      Default |
+|                               |                      |             Disabled |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
++-----------------------------------------------------------------------------+
+Compiling to ONNX Model - /workspace/export/Run3//ONNX/model.onnx
+/usr/local/lib/python3.8/dist-packages/torch/onnx/utils.py:298: UserWarning: It is recommended that constant folding be turned off ('do_constant_folding=False') when exporting the model in training-amenable mode, i.e. with 'training=TrainingMode.TRAIN' or 'training=TrainingMode.PRESERVE' (when model is in training mode). Otherwise, some learnable model parameters may not translate correctly in the exported ONNX model because constant folding mutates model parameters. Please consider turning off constant folding or setting the training=TrainingMode.EVAL.
+  warnings.warn("It is recommended that constant folding be turned off ('do_constant_folding=False') "
+Traceback (most recent call last):
+  File "compile.py", line 117, in <module>
+    main()
+  File "compile.py", line 105, in main
+    onnx_model = compile_onnx_model(torch_model, onnx_path)
+  File "compile.py", line 73, in compile_onnx_model
+    onnx_model = gpt2.as_onnx_model(onnx_path, force_overwrite=False)
+  File "/workspace/TensorRT/demo/HuggingFace/NNDF/models.py", line 293, in as_onnx_model
+    return converter.torch_to_onnx(
+  File "/workspace/TensorRT/demo/HuggingFace/GPT2/export.py", line 167, in torch_to_onnx
+    torch.onnx._export(
+  File "/usr/local/lib/python3.8/dist-packages/torch/onnx/__init__.py", line 28, in _export
+    result = utils._export(*args, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/torch/onnx/utils.py", line 689, in _export
+    _model_to_graph(model, args, verbose, input_names,
+  File "/usr/local/lib/python3.8/dist-packages/torch/onnx/utils.py", line 458, in _model_to_graph
+    graph, params, torch_out, module = _create_jit_graph(model, args,
+  File "/usr/local/lib/python3.8/dist-packages/torch/onnx/utils.py", line 422, in _create_jit_graph
+    graph, torch_out = _trace_and_get_graph_from_model(model, args)
+  File "/usr/local/lib/python3.8/dist-packages/torch/onnx/utils.py", line 373, in _trace_and_get_graph_from_model
+    torch.jit._get_trace_graph(model, args, strict=False, _force_outplace=False, _return_inputs_states=True)
+  File "/usr/local/lib/python3.8/dist-packages/torch/jit/_trace.py", line 1160, in _get_trace_graph
+    outs = ONNXTracedModule(f, strict, _force_outplace, return_inputs, _return_inputs_states)(*args, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/torch/jit/_trace.py", line 127, in forward
+    graph, out = torch._C._create_graph_by_tracing(
+  File "/usr/local/lib/python3.8/dist-packages/torch/jit/_trace.py", line 114, in wrapper
+    tuple(x.clone(memory_format=torch.preserve_format) for x in args)
+  File "/usr/local/lib/python3.8/dist-packages/torch/jit/_trace.py", line 114, in <genexpr>
+    tuple(x.clone(memory_format=torch.preserve_format) for x in args)
+RuntimeError: CUDA out of memory. Tried to allocate 100.00 MiB (GPU 0; 39.59 GiB total capacity; 36.93 GiB already allocated; 89.19 MiB free; 37.54 GiB reserved in total by PyTorch)
