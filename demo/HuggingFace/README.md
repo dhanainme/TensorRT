@@ -6,6 +6,7 @@ P4 Instance / A100-SXM4-40GB
 ```
 mkdir workspace && cd workspace
 git clone https://github.com/dhanainme/TensorRT/
+git checkout gpt_xl_debug
 ```
 
 
