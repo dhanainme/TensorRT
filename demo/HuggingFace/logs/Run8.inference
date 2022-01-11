@@ -1,0 +1,31 @@
+2022-01-11 16:32:33.137288: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+Creating model from variant name gpt2-large, Ignoring EMBEDDING, LAYERS, HEADS
+[2022-01-11 16:32:50,923][OSS][INFO] Reading and loading engine file /workspace/export/Run8//TRT/model.engine using trt native runner.
+[01/11/2022-16:32:57] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 11.6.3 but loaded cuBLAS/cuBLAS LT 11.6.1
+[01/11/2022-16:32:57] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 11.6.3 but loaded cuBLAS/cuBLAS LT 11.6.1
+[2022-01-11 16:33:02,064][OSS][DEBUG] Number of profiles detected in engine: 2
+[2022-01-11 16:33:02,065][OSS][DEBUG] Selected profile: [(1, 1), (1, 32), (1, 64)]
+===========================================
+Input text / input tensors / input shape :  HBO released a new TV series this weekend. {'input_ids': tensor([[  39, 8202, 2716,  257,  649, 3195, 2168,  428, 5041,   13]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])} torch.Size([1, 10])
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+==========================================
+TRT Output text / output tensors 
+ HBO released a new TV series this weekend.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+ tensor([[  39, 8202, 2716,  257,  649, 3195, 2168,  428, 5041,   13,    0,    0,
+            0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+            0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+            0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0]],
+       device='cuda:0')
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+==========================================
+PyTorch Output text / output tensors
+ HBO released a new TV series this weekend. The show, called "True Detective," is based on the book of the same name by Nic Pizzolatto, who also wrote the screenplay.
+
+The show is set in the 
+ tensor([[   39,  8202,  2716,   257,   649,  3195,  2168,   428,  5041,    13,
+           383,   905,    11,  1444,   366, 17821, 20220,   553,   318,  1912,
+           319,   262,  1492,   286,   262,   976,  1438,   416,  8377,   350,
+          6457,   349, 45807,    11,   508,   635,  2630,   262, 39769,    13,
+           198,   198,   464,   905,   318,   900,   287,   262]],
+       device='cuda:0')
+===========================================

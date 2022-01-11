@@ -1,10 +1,10 @@
-2022-01-10 18:48:17.493102: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+2022-01-10 19:28:55.896544: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
 Creating model from variant name gpt2-xl, Ignoring EMBEDDING, LAYERS, HEADS
-[2022-01-10 18:48:45,887][OSS][INFO] Reading and loading engine file /workspace/export/Run1//TRT/model.engine using trt native runner.
-[01/10/2022-18:48:58] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 11.6.3 but loaded cuBLAS/cuBLAS LT 11.6.1
-[01/10/2022-18:48:59] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 11.6.3 but loaded cuBLAS/cuBLAS LT 11.6.1
-[2022-01-10 18:49:08,248][OSS][DEBUG] Number of profiles detected in engine: 2
-[2022-01-10 18:49:08,249][OSS][DEBUG] Selected profile: [(5, 1), (5, 512), (5, 1024)]
+[2022-01-10 19:29:22,526][OSS][INFO] Reading and loading engine file /workspace/export/Run1//TRT/model.engine using trt native runner.
+[01/10/2022-19:29:34] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 11.6.3 but loaded cuBLAS/cuBLAS LT 11.6.1
+[01/10/2022-19:29:35] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 11.6.3 but loaded cuBLAS/cuBLAS LT 11.6.1
+[2022-01-10 19:29:43,043][OSS][DEBUG] Number of profiles detected in engine: 2
+[2022-01-10 19:29:43,044][OSS][DEBUG] Selected profile: [(5, 1), (5, 512), (5, 1024)]
 ===========================================
 Input text / input tensors / input shape :  HBO released a new TV series this weekend. {'input_ids': tensor([[  39, 8202, 2716,  257,  649, 3195, 2168,  428, 5041,   13],
         [  39, 8202, 2716,  257,  649, 3195, 2168,  428, 5041,   13],
